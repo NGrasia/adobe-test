@@ -2,9 +2,9 @@ version: 0.1
 phase:
   install:
     commands:
-      - aws cloudformation package --template-file adobe-test/samTemplate.yaml --s3-bucket codepipeline-us-east-2-118905992744 --output-template-file outputSamtemplate.yaml --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
+      - aws cloudformation package --template-file template.yaml --s3-bucket codepipeline-us-east-2-118905992744 --output-template-file outputtemplate.yaml --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
 artifacts:
   type: zip
   files:
-    - samTemplate.yaml
-    - outputSamTemplate.yaml
+    - template.yaml
+    - outputtemplate.yaml
