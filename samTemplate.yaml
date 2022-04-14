@@ -1,14 +1,20 @@
-AWSTemplateFormatVersion : '2010-09-09'
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: A sample SAM template for deploying Lambda functions.
+Description: >
+  my-sam-app
+
+  Sample SAM Template for my-sam-app
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
 Resources:
-  HelloWorld:
-    Type: AWS::Serverless::Function
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      Runtime: python3.7
       Role: arn:aws:iam::694992456702:role/mylambda-execute-s3-file
+      CodeUri: lambda_code/
       Handler: lambda_function.lambda_handler
-      Timeout: 120
-      FunctionName: HelloWorld
-      CodeUri: ../lambdas/lambda_code/
-      Description: Lambda Function to process tsv file
+      Runtime: python3.7
