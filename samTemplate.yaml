@@ -4,20 +4,6 @@ Description: A sample SAM template for deploying Lambda functions.
 
 Resources:
 
-  LambdaExecutionPolicy:
-    Type: AWS::IAM::ManagedPolicy
-    Properties:
-      Description: "This policy is used by lambda-role to execute lambda"
-      ManagedPolicyName: "ncode-lambda-s3-file-policy"
-      PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-          - Sid: LambdaInvokeAccess
-            Effect: Allow
-              - lambda: InvokeFunction
-            Resouce:
-              -
-
   processrevenuefunction:
     Type: "AWS::Serverless::Function"
     Properties:
