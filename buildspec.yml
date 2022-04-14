@@ -1,0 +1,10 @@
+version: 0.1
+phase:
+  install:
+    commands:
+      - aws cloudformation package --template-file samTemplate.yaml --s3-bucket nproject-code-artifacts --output-template-file outputSamtemplate.yaml
+artifacts:
+  type: zip
+  files:
+    - samTemplate.yaml
+    - -outputSamTemplate.yaml
