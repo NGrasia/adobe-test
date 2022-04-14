@@ -3,7 +3,6 @@ Transform: AWS::Serverless-2016-10-31
 Description: A sample SAM template for deploying Lambda functions.
 
 Resources:
-
   processrevenuefunction:
     Type: "AWS::Serverless::Function"
     Properties:
