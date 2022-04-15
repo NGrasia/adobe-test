@@ -1,11 +1,10 @@
-version: 0.2
-phases:
+version: 0.1
+phase:
   install:
-    runtime-versions:
-      docker: 18
     commands:
-      - echo "I am in buildspec"
-      - pwd
-      - echo $(ls-la)
-      - chmod +x ./bin/deploy.sh
-      - ./bin/deploy.sh
+      - aws cloudformation package --template-file adobe-test/template.yaml --s3-bucket ncode-zip-files --output-template-file output_template.yaml --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
+artifacts:
+  type: zip
+  files:
+    - template.yaml
+    - output_template.yaml
