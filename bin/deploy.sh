@@ -4,7 +4,7 @@ DIRNAME= "./bin"
 S3_BUCKET = " "
 TEMPLATE_PATH="${DIRNAME}/template.yaml"
 BUNDLE_PATH="${DIRNAME}/output/packaged-template.yaml"
-CODE_S3_BUCKET="ncode-zip-files"
+CODE_S3_BUCKET="codepipeline-us-east-1-58008411995"
 CODE_S3_BUCKET_KEY='/shared/my_code'
 DEPLOY_LOCATION="s3://$CODE_S3_BUCKET$CODE_S3_BUCKET_KEY"
 
