@@ -1,8 +1,15 @@
 version: 0.1
-phase:
+phases:
   install:
+    runtime-versions:
+      docker: 19
     commands:
+      - echo "This buildspec.yaml"
+      - pwd
+      - ls-la
       - aws cloudformation package --template-file adobe-test/template.yaml --s3-bucket ncode-zip-files --output-template-file output_template.yaml --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
+      - ls-la
+      - echo "done"
 artifacts:
   type: zip
   files:
