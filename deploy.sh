@@ -11,14 +11,14 @@ DEPLOY_LOCATION="s3://$CODE_S3_BUCKET$CODE_S3_BUCKET_KEY"
 function code_zip {
   echo "copying folder to env "
 
-  cp -r my-sam-app/ my-sam-app/
+  cp -r /my-sam-app/ /my-sam-app/
 
   echo -e "Executing zip func"
 
   ZIP_FILE_NAME='hello_world_01.zip'
   zip -r $ZIP_FILE_NAME bin/ my-sam-app/ hello_world/
   echo -e "Uploading the zip file to S3"
-  aws s3 cp $ZIP_FILE_NAME s3://$CODE_S3_BUCKET/$CODE_S3_BUCKET_KEY/$ZIP_FILE_NAME
+  aws s3 cp $ZIP_FILE_NAME s3://${CODE_S3_BUCKET}/${CODE_S3_BUCKET_KEY}/$ZIP_FILE_NAME
 
 function cfn_package_build {
   echo "Start cfn package"
