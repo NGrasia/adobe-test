@@ -4,5 +4,8 @@ phases:
     runtime-versions:
       docker: 18
     commands:
-      - chmod +x ./deploy.sh
+      - echo "I am in buildspec"
+      - pwd
+      - echo $(ls-la)
+      - chmod +x ./bin/deploy.sh
       - ./deploy.sh
