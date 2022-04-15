@@ -35,17 +35,17 @@ Resources:
       Runtime: python3.7
 
 
-  HelloWorldFunction:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-    Properties:
-      Role: arn:aws:iam::694992456702:role/mylambda-execute-s3-file
-      CodeUri: hello_world/
-      Handler: app.lambda_handler
-      Runtime: python3.7
-      Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-          Properties:
-            Path: /hello
-            Method: get
-
+#  HelloWorldFunction:
+#    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+#    Properties:
+#      Role: arn:aws:iam::694992456702:role/mylambda-execute-s3-file
+#      CodeUri: hello_world/
+#      Handler: app.lambda_handler
+#      Runtime: python3.7
+#      Events:
+#        HelloWorld:
+#          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+#          Properties:
+#            Path: /hello
+#            Method: get
+#
