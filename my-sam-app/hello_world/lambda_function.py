@@ -5,5 +5,5 @@ LOGGER = logging.getLogger()
 LOGGER.setLevel(logging.INFO)
 
 
-def lambda_handle(event, context):
+def lambda_handler(event, context):
     print('hello')
