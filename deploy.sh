@@ -1,24 +1,24 @@
 #!/usr/bin/env bash
 
 DIRNAME= "./bin"
-S3_BUCKET = " "
+S3_BUCKET = "placeholder"
 TEMPLATE_PATH="${DIRNAME}/template.yaml"
 BUNDLE_PATH="${DIRNAME}/output/packaged-template.yaml"
 CODE_S3_BUCKET="codepipeline-us-east-1-58008411995"
 CODE_S3_BUCKET_KEY='/shared/my_code'
 DEPLOY_LOCATION="s3://$CODE_S3_BUCKET$CODE_S3_BUCKET_KEY"
 
-fucntion code_zip {
+function code_zip {
   echo "copying folder to env "
 
-  cp my-sam-app/ my_sam_app/
+  cp -r my-sam-app/ my-sam-app/
 
   echo -e "Executing zip func"
 
-  ZIP_FILE_NAME = 'hello_world_01.zip'
-  zip -r $ZIP_FILE_NAME bin/ my_sam_app/ hello_world/
+  ZIP_FILE_NAME='hello_world_01.zip'
+  zip -r $ZIP_FILE_NAME bin/ my-sam-app/ hello_world/
   echo -e "Uploading the zip file to S3"
-  aws s3 cp $ZIP_FILE_NAME $DEPLOY_LOCATION/$ZIP_FILE_NAME
+  aws s3 cp $ZIP_FILE_NAME s3://$CODE_S3_BUCKET/$CODE_S3_BUCKET_KEY/$ZIP_FILE_NAME
 
 function cfn_package_build {
   echo "Start cfn package"
