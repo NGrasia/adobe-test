@@ -18,21 +18,18 @@ function code_zip {
   ZIP_FILE_NAME='hello_world_01.zip'
   zip -r $ZIP_FILE_NAME bin/ my-sam-app/ hello_world/
   echo -e "Uploading the zip file to S3"
-  aws s3 cp $ZIP_FILE_NAME s3://${CODE_S3_BUCKET}/${CODE_S3_BUCKET_KEY}/$ZIP_FILE_NAME
+  aws s3 cp $ZIP_FILE_NAME s3://${CODE_S3_BUCKET}/${CODE_S3_BUCKET_KEY}/$ZIP_FILE_NAME}
 
-function cfn_package_build {
+function cfn_package_build{
   echo "Start cfn package"
-
   mkdir ${DIRNAME}/output
   aws aws cloudformation package --template-file ${TEMPLATE_PATH} --s3-bucket ${CODE_S3_BUCKET} --output-template-file ${BUNDLE_PATH} --capabilities CAPABILITY_IAM CAPABILITY_AUTO_EXPAND
-  echo "Completed building Template"
+  echo "Completed building Template"}
 }
-
 function main{
     cfn_package_build
     code_zip
+    }
 
-}
-}
 main
 echo "Completed build stage"
