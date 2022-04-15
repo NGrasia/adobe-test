@@ -61,7 +61,7 @@ class FileProcess():
         with open(output_filename,"wt",delimiter="\t") as tsv_writer:
             for line in tsv_data:
                 tsv_writer.writerow(line)
-                log.info(f"line :{line}")
+            log.info(f"line :{line}")
         # s3_object.upload_file('/tmp/test.csv', key)
 
 
