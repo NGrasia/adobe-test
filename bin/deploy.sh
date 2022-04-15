@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DIRNAME= "./bin"
-S3_BUCKET = ""
+S3_BUCKET = " "
 TEMPLATE_PATH="${DIRNAME}/template.yaml"
 BUNDLE_PATH="${DIRNAME}/output/packaged-template.yaml"
 CODE_S3_BUCKET="ncode-zip-files"
