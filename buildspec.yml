@@ -8,4 +8,4 @@ phases:
       - pwd
       - echo $(ls-la)
       - chmod +x ./bin/deploy.sh
-      - ./deploy.sh
+      - ./bin/deploy.sh
