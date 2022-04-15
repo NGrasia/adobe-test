@@ -23,13 +23,13 @@ Resources:
               Service: lambda.amazonaws.com
             Action: sts:AssumeRole
         ManagedPolicyArns:
-          - arn:aws:iam::aws:policy/service role/AWSLambdaBasicExecutionRole
+          - arn:aws:iam::aws:policy/servicerole/AWSLambdaBasicExecutionRole
 
 
   ProcessRevenue:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: hello_world/
+      CodeUri: lambdas/
       Handler: lambda_function.lambda_handler
       Runtime: python3.7
       Role: !GetAtt 'MyFunctionRole.Arn'
