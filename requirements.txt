@@ -2,6 +2,3 @@ pandas>1.0
 boto3
 pytest
 pandasql
-csv
-datetime
-logger
