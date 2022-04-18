@@ -20,7 +20,10 @@ import datetime
 import logging
 import boto3
 import pandas as pd
+import urllib.parse as url
+from pandasql import sqldf
 
+pysqldf = lambda q: sqldf(q, globals())
 log = logging.getLogger()
 log.setLevel(logging.INFO)
 
@@ -39,31 +42,83 @@ class FileProcess():
         self._file = ""
 
 
-    def _filename_format(self):
-        """[Date]_SearchKeywordPerformance.tab
-        [Date] corresponds to the date the application executed for
-        The format should be YYYY-mm-dd (i.e. 2009-10-08)"""
-        pass
+    def _begin_parsing(self):
+        """This function takes file data and create dataframe using pandas lib
+        also parse the required columns to achieve client requirments"""
+
+        data = pd.read_csv("data.tsv", sep="\t")
+        df = pd.DataFrame(data)
+        df1 = df['product_list'].str.split(';', expand=True)
+        df1.columns = ["category", "product_name", "nos_items", "total_revenue", "custom_events"]
+        df2 = pd.concat([df, df1], axis=1)
+        self._find_keyword_search_url(df2)
+        log.info(f"keyword function completed")
+        self._dataframe_query()
+        log.info(f"query function completed")
+        self._write_file()
+        log.info(f"write function completed")
 
 
+    def _dataframe_query(self):
+        #TODO
+        """ This function runs sql query on final dataframe and send result to write output tsv file"""
 
-    def _write_tsv(self,data):
-        """ This function reads tsv file and select required details ,process and write the result
+        q = """SELECT   seach_engine as search_engine_domain,
+                        keyword as search_keyword
+                        sum(total_revenue) as revenue
+               FROM df2 WHERE event_list in (2,1) 
+               and search_engine_domain not in ("www.esshopzilla.com")
+               group by search_engine_domain,search_keyword order by revenue desc
+               LIMIT 5;"""
+        names = pysqldf(q)
+        log.info(f"query output: {names}")
+
+    def _write_file(self):
+        """This function reads tsv file and select required details ,process and write the result
         set into another tsv file """
 
         current_date = datetime.date.today()
         output_filename = current_date + "_SearchKeywordPerformance.tab"
         log.info(f"Filename : {output_filename}")
 
-        tsv_data = pd.read_csv(data, sep='\t')
-        print(tsv_data.head())
+        self.names.to_csv(output_filename, sep='\t',index=False)
+        log.info(f"Writing file has completed")
 
-        with open(output_filename,"wt",delimiter="\t") as tsv_writer:
-            for line in tsv_data:
-                tsv_writer.writerow(line)
-            log.info(f"line :{line}")
-        # s3_object.upload_file('/tmp/test.csv', key)
+    def _find_keyword_search_url(self,df2):
 
+        #TODO This function can be imporved with better webscraping functionality to get keywords.
+
+        """ This function takes input dataframe and process url column to get keyword and respective
+            search engine url using urllib library
+            Args: Dataframe
+
+            Returns: Added two columns keyword and search engine url
+        """
+
+        url = df2["referrer"]
+        keyword = []
+        search_engine = []
+
+        for i in url:
+            if ('google' in i) or ('bing' in i):#google and bing use q query string
+                pr = url.urlparse(i)
+                qs = url.parse_qs(pr.query)['q']
+                log.info(f"keyword: {qs}")
+                search_engine.append(pr[1])
+                keyword.extend(qs)
+            elif 'yahoo' in i: #as yahoo seach engine uses p query string
+                pr = url.urlparse(i)
+                qs = url.parse_qs(pr.query)['p']
+                log.info(f"keyword: {qs}")
+                search_engine.append(pr[1])
+                keyword.extend(qs)
+            else:
+                pr = url.urlparse(i)
+                keyword.append("None")
+                search_engine.append(pr[1])
+        df2["search_engine"] = search_engine
+        df2["keyword"] = keyword
+        return df2
 
 
 def lambda_handler(event, context):
