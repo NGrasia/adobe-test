@@ -6,7 +6,7 @@ phases:
     commands:
       - echo "This buildspec.yaml"
       - pwd
-      - pip install -r lambdas/requirements.txt
+      - pip install -r requirements.txt
       - aws cloudformation package --template-file my-sam-app/template.yaml --s3-bucket ncode-zip-files --output-template-file output_template.yaml
       - echo "done"
 artifacts:
