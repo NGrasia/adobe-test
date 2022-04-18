@@ -8,7 +8,9 @@ phases:
       - pwd
       - pip install -r requirements.txt
       - aws cloudformation package --template-file my-sam-app/template.yaml --s3-bucket ncode-zip-files --output-template-file output_template.yaml
+      - pip install -r requirements.txt
       - echo "done"
+
 artifacts:
   type: zip
   files:
