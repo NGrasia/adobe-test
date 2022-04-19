@@ -77,11 +77,11 @@ class FileProcess:
 
         #Utlizing pandasql to execute sql queries on dataframe
         #Another approaches withing dataframe methods
-        self._names = self._dataframe_query(df2)
+        self._names,self._names_a = self._dataframe_query(df2)
         log.info(f"query function completed")
 
         #Finally writing output result to s3 bucket.
-        self._write_file(self._names)
+        self._write_file(self._names,self._names_a)
         log.info(f"write function completed")
 
     def _dataframe_query(self, df2):
@@ -104,15 +104,17 @@ class FileProcess:
                     FROM df2 
               """
         names = sqldf(q)
+        names_a =sqldf(qa)
 
         log.info(f"query output: {names}")
-        return names
+        return names,names_a
 
-    def _write_file(self,names):
+    def _write_file(self,names,names_a):
         """This function reads tsv file and select required details ,process and write the result
         set into another tsv file """
 
         self._names= names
+        self._names_a = names_a
 
         current_date = datetime.date.today()
         output_filename = str(current_date) + "_SearchKeywordPerformance.tab"
@@ -130,6 +132,13 @@ class FileProcess:
 
             response = s3_client.put_object(
                 Bucket=self._bucket, Key=f"daily_output/{output_filename}", Body=csv_buffer.getvalue()
+            )
+
+        with io.StringIO() as csv_buffer:
+            self._names_a.to_csv(csv_buffer,sep='\t', index=False)
+
+            response = s3_client.put_object(
+                Bucket=self._bucket, Key=f"daily_output_detailed/{output_filename}", Body=csv_buffer.getvalue()
             )
 
         log.info(f"Writing file has completed")
