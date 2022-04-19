@@ -1,14 +1,14 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  my-sam-app
+  hit data analysis
 
-  Sample SAM Template for my-sam-app
+  SAM Template for hit data analysis
 
-# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 60
 
 Resources:
 
@@ -47,17 +47,3 @@ Resources:
 #        - pandasql
 ##
 
-#  HelloWorldFunction:
-#    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
-#    Properties:
-#      Role: arn:aws:iam::694992456702:role/mylambda-execute-s3-file
-#      CodeUri: hello_world/
-#      Handler: app.lambda_handler
-#      Runtime: python3.7
-#      Events:
-#        HelloWorld:
-#          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
-#          Properties:
-#            Path: /hello
-#            Method: get
-#
