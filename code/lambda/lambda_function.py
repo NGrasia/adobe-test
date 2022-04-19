@@ -97,12 +97,11 @@ class FileProcess:
                -- and search_engine_domain not in ("www.esshopzilla.com")
                group by search_engine_domain,search_keyword order by revenue desc
               """
-        qa = """SELECT  product_list,referrer,
-                        category,product_name,nos_items,
-                        total_revenue,custom_events,
-                        search_engine,keyword 
-                    FROM df2 
-              """
+        qa = """SELECT  referrer,product_list,event_list,
+                                category,search_engine,keyword,product_name,nos_items,
+                                total_revenue,custom_events
+                            FROM df2 order by total_revenue desc;
+                      """
         names = sqldf(q)
         names_a =sqldf(qa)
 
@@ -118,6 +117,7 @@ class FileProcess:
 
         current_date = datetime.date.today()
         output_filename = str(current_date) + "_SearchKeywordPerformance.tab"
+        output_filename_detail = str(current_date) + "_SearchKeywordPerformance_Detailed.tab"
         log.info(f"Filename : {output_filename}")
 
         s3_resource = boto3.resource('s3')
@@ -138,7 +138,7 @@ class FileProcess:
             self._names_a.to_csv(csv_buffer,sep='\t', index=False)
 
             response = s3_client.put_object(
-                Bucket=self._bucket, Key=f"daily_output_detailed/{output_filename}", Body=csv_buffer.getvalue()
+                Bucket=self._bucket, Key=f"daily_output_detailed/{output_filename_detail}", Body=csv_buffer.getvalue()
             )
 
         log.info(f"Writing file has completed")
