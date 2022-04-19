@@ -3,7 +3,7 @@
 
 """
 lambda_function.py
-my-sam-app/lambdas/lambda_function.py
+my-sam-app/lambda/lambda_function.py
 
 created by Nilesh Grasia on 04/15/2022
 

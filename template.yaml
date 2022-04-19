@@ -30,26 +30,22 @@ Resources:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       Role: arn:aws:iam::694992456702:role/mylambda-execute-s3-file
-      CodeUri: lambdas/
+      CodeUri: ./
       Handler: lambda_function.lambda_handler
-      Runtime: python3.7
+      Runtime: python3.8
 
-#  MyLayer:
-#    Type: Custom::PipLayer
-#    Properties:
-#      ServiceToken: !GetAtt ProcessRevenue.Arn
-#      Region: !Ref AWS::Region
-#      LayerName: mylayer
-#      Packages:
-#        - pandas>1.0
-#        - boto3
-#        - pytest
-#        - urllib
-#        - pandasql
-#        - csv
-#        - datetime
-#        - logger
-
+  MyLayer:
+    Type: Custom::PipLayer
+    Properties:
+      ServiceToken: !GetAtt ProcessRevenue.Arn
+      Region: !Ref AWS::Region
+      LayerName: mylayer
+      Packages:
+        - pandas>1.0
+        - boto3
+        - pytest
+        - pandasql
+#
 
 #  HelloWorldFunction:
 #    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
