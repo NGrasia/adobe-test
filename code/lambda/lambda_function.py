@@ -141,7 +141,7 @@ class FileProcess:
                 Bucket=self._bucket, Key=f"daily_output_detailed/{output_filename_detail}", Body=csv_buffer.getvalue()
             )
 
-        log.info(f"Writing file has completed")
+        log.info(f"Writing file has completed..")
 
     def _find_keyword_search_url(self, df2):
 
