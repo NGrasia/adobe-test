@@ -1,14 +1,4 @@
-import json
-import pytest
-
-from code import lambda_function
-
-
-@pytest.fixture()
-def apigw_event():
-    """ Generates API GW Event"""
-
-    return {
+{
   "Records": [
     {
       "eventVersion": "2.1",
@@ -46,14 +36,3 @@ def apigw_event():
     }
   ]
 }
-
-
-def test_lambda_handler(apigw_event, mocker):
-
-    ret = lambda_function.lambda_handler(apigw_event, "")
-    data = json.loads(ret["body"])
-
-    assert ret["statusCode"] == 200
-    assert "message" in ret["body"]
-    assert data["message"] == "Test1"
-    # assert "location" in data.dict_keys()

@@ -27,7 +27,7 @@ Resources:
 
 
   ProcessRevenue:
-    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Type: AWS::Serverless::Function
     Properties:
       Role: arn:aws:iam::694992456702:role/mylambda-execute-s3-file
       CodeUri: code/lambda/
